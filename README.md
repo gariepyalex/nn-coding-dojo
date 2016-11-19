@@ -17,3 +17,8 @@ Il suffit ensuite d'activer l'environnement virtuel et d'installer les dépendan
 $ source .env/bin/activate
 $ pip install -r requirements.txt
 ```
+
+
+### Liens
+
+Ce dojo est basé en partie sur le matériel du cours de Stanford CS231n. http://cs231n.stanford.edu/syllabus.html
