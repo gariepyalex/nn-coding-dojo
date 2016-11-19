@@ -3,11 +3,12 @@
 
 ### Installation
 
-Ce dojo requière une installation de `python3` et de `pip`.
+Ce dojo requière une installation de `python2` et de `pip`. La version 2 de python est utilisée puisque les datasets ont été
+compressés avec `python2` et ne sont pas compatibles avec `python3`.
 
 ```
-$ sudo pip3 install virtualenv
-$ virtualenv -p python3 .env
+$ sudo pip2 install virtualenv
+$ virtualenv -p python2 .env
 ```
 
 Les commandes précédentes créent un environnement virtuel pour isoler l'installation des dépendances.
