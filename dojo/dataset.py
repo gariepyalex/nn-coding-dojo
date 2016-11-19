@@ -16,7 +16,7 @@ class Cifar10Dataset:
         if not self._is_downloaded():
             self._download_dataset()
 
-        self.X_train, self.Y_train, self.X_test, self.Y_test = self._load_dataset()
+        self.x_train, self.y_train, self.x_test, self.y_test = self._load_dataset()
 
     def _is_downloaded(self):
         return os.path.isdir(self.path)
@@ -47,11 +47,11 @@ class Cifar10Dataset:
         """ load single batch of cifar """
         with open(filename, 'rb') as f:
             datadict = pickle.load(f)
-            X = datadict['data']
-            Y = datadict['labels']
-            X = X.reshape(10000, 3, 32, 32).transpose(0,2,3,1).astype("float")
-            Y = np.array(Y)
-            return X, Y
+            x = datadict['data']
+            y = datadict['labels']
+            x = x.reshape(10000, 3, 32, 32).transpose(0,2,3,1).astype("float")
+            y = np.array(y)
+            return x, y
 
 
     def _load_dataset(self):
@@ -59,11 +59,11 @@ class Cifar10Dataset:
         ys = []
         for batch_number in range(1,6):
             batch_file = os.path.join(self.path, 'data_batch_%d' % batch_number)
-            X, Y = self._load_cifar_batch(batch_file)
-            xs.append(X)
-            ys.append(Y)
-        X_train = np.concatenate(xs)
-        Y_train = np.concatenate(ys)
-        del X, Y
-        X_test, Y_test = self._load_cifar_batch(os.path.join(self.path, 'test_batch'))
-        return X_train, Y_train, X_test, Y_test
+            x, y = self._load_cifar_batch(batch_file)
+            xs.append(x)
+            ys.append(y)
+        x_train = np.concatenate(xs)
+        y_train = np.concatenate(ys)
+        del x, y
+        x_test, y_test = self._load_cifar_batch(os.path.join(self.path, 'test_batch'))
+        return x_train, y_train, x_test, y_test
