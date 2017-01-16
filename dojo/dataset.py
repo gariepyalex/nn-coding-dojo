@@ -4,6 +4,7 @@ import os
 import tarfile
 import pickle
 import numpy as np
+import random
 
 DATASET_PATH = './dataset/'
 
@@ -17,6 +18,7 @@ class Cifar10Dataset:
             self._download_dataset()
 
         self.x_train, self.y_train, self.x_test, self.y_test = self._load_dataset()
+
 
     def _is_downloaded(self):
         return os.path.isdir(self.path)
@@ -67,3 +69,36 @@ class Cifar10Dataset:
         del x, y
         x_test, y_test = self._load_cifar_batch(os.path.join(self.path, 'test_batch'))
         return x_train, y_train, x_test, y_test
+
+
+
+class PolynomialDataset:
+    """
+    Data in coming from a polynomial function of the shape y = ax^2 + bx + c + sigma, where a, b and c
+    are parameters of the function and sigma is random noise of the distribution.
+    """
+
+    def __init__(self, n_of_points=1000, min_param=0, max_param=10):
+        self.a = random.randint(min_param, max_param)
+        self.b = random.randint(min_param, max_param)
+        self.c = random.randint(min_param, max_param)
+        self.sigma = 0.001
+
+        xs = np.random.standard_normal(n_of_points)
+        ys = self.a * (xs ** 2) + self.b * xs + self.c + random.random() * self.sigma
+
+        split_index = 4 * n_of_points // 5
+
+        self.x_train = xs[:split_index]
+        self.y_train = ys[:split_index]
+
+        self.x_test = xs[split_index:]
+        self.y_test = ys[split_index:]
+
+
+
+if __name__ == '__main__':
+    p = PolynomialDataset()
+    print(p.a, p.b, p.c)
+    print(p.x_train[:10])
+    print(p.y_train[:10])
