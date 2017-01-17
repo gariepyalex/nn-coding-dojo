@@ -23,6 +23,7 @@ $ pip install -r requirements.txt
 
 Une alternative à l'installation proposée ci-haut est l'utilisation d'un *container* [Cloud Datalab](https://github.com/googledatalab/datalab) 
 local sur `Docker`. Le Datalab est un environnement pour le Machine Learning en Python créé par Google.
+
 #### Mac OSX
 
 ##### Installez Docker et Kitematic
@@ -46,6 +47,13 @@ $ docker run -it -p "127.0.0.1:8081:8080" -v "${HOME}:/content" \
 Le Datalab roule maintenant sur *localhost:8081*. Vous pouvez également utiliser Kitematic pour
 le démarrer. Vous avez maintenant un environnement comprennant toutes les librairies nécessaires
 pour ce dojo sans même avoir installé Python.
+
+#### Windows
+
+1. Téléchargez et installez docker toolbox [ici](https://www.docker.com/products/docker-toolbox)
+2. Ouvrir _Docker Quickstart Terminal_ et prendre en note l'adresse IP : `docker is configured to use the default machine with IP <...>`
+3. `docker run -it -p 8081:8080 -v "${HOME}:/content" -e "PROJECT_ID=nn-coding-dojo" gcr.io/cloud-datalab/datalab:local`
+4. Utiliser l'adresse IP de l'étape 2 pour accéder au datalab, `localhost` ne fonctionnera pas
 
 ---
 ### Liens
