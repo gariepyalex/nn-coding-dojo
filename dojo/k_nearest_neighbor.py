@@ -20,7 +20,7 @@ class KNearestNeighbor(object):
         self.X_train = X
         self.y_train = y
 
-    def predict(self, X, k=1, num_loops=0):
+    def predict(self, X, k=1, num_loops=2):
         """
         Predict labels for test data using this classifier.
 
@@ -63,18 +63,9 @@ class KNearestNeighbor(object):
         num_test = X.shape[0]
         num_train = self.X_train.shape[0]
         dists = np.zeros((num_test, num_train))
-        for i in xrange(num_test):
-            for j in xrange(num_train):
-                #####################################################################
-                # TODO:                                                             #
-                # Compute the l2 distance between the ith test point and the jth    #
-                # training point, and store the result in dists[i, j]. You should   #
-                # not use a loop over dimension.                                    #
-                #####################################################################
-                dists[i, j] = np.sqrt(np.sum(np.square(self.X_train[j] - X[i])))
-                #####################################################################
-                #                       END OF YOUR CODE                            #
-                #####################################################################
+        
+        # TODO CODING DOJO
+        
         return dists
 
     def compute_distances_one_loop(self, X):
@@ -88,15 +79,8 @@ class KNearestNeighbor(object):
         num_train = self.X_train.shape[0]
         dists = np.zeros((num_test, num_train))
         for i in xrange(num_test):
-            #######################################################################
-            # TODO:                                                               #
-            # Compute the l2 distance between the ith test point and all training #
-            # points, and store the result in dists[i, :].                        #
-            #######################################################################
-            dists[i, :] = np.sqrt(np.sum(np.square(self.X_train - X[i]), axis=1))
-            #######################################################################
-            #                         END OF YOUR CODE                            #
-            #######################################################################
+            # TODO question bonus                                                               #
+            pass
         return dists
 
     def compute_distances_no_loops(self, X):
@@ -110,7 +94,7 @@ class KNearestNeighbor(object):
         num_train = self.X_train.shape[0]
         dists = np.zeros((num_test, num_train))
         #########################################################################
-        # TODO:                                                                 #
+        # TODO question bonus:                                                                 #
         # Compute the l2 distance between all test points and all training      #
         # points without using any explicit loops, and store the result in      #
         # dists.                                                                #
@@ -120,13 +104,6 @@ class KNearestNeighbor(object):
         #                                                                       #
         # HINT: Try to formulate the l2 distance using matrix multiplication    #
         #       and two broadcast sums.                                         #
-        #########################################################################
-        train_squared_sum = np.sum(np.square(self.X_train), axis=1)
-        test_squared_sum = np.sum(np.square(X), axis=1)
-        dists[:,:] = np.sqrt(train_squared_sum.reshape(1, -1) + (-2 * np.dot(X, np.transpose(self.X_train)))\
-                     + test_squared_sum.reshape(-1, 1))
-        #########################################################################
-        #                         END OF YOUR CODE                              #
         #########################################################################
         return dists
 
@@ -150,22 +127,21 @@ class KNearestNeighbor(object):
             # the ith test point.
             closest_y = []
             #########################################################################
-            # TODO:                                                                 #
+            # TODO coding dojo:                                                                 #
             # Use the distance matrix to find the k nearest neighbors of the ith    #
             # testing point, and use self.y_train to find the labels of these       #
             # neighbors. Store these labels in closest_y.                           #
             # Hint: Look up the function numpy.argsort.                             #
             #########################################################################
-            y_indexes = np.argsort(dists[i])[0:k]
-            closest_y = [self.y_train[y] for y in y_indexes]
+            
             #########################################################################
-            # TODO:                                                                 #
+            # TODO coding dojo:                                                                 #
             # Now that you have found the labels of the k nearest neighbors, you    #
             # need to find the most common label in the list closest_y of labels.   #
             # Store this label in y_pred[i]. Break ties by choosing the smaller     #
             # label.                                                                #
             #########################################################################
-            y_pred[i] = Counter(closest_y).most_common()[0][0]
+            
             #########################################################################
             #                           END OF YOUR CODE                            #
             #########################################################################
